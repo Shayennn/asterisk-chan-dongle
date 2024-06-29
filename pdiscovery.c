@@ -71,6 +71,8 @@ static const struct pdiscovery_device device_ids[] = {
 	{ 0x2c7c, 0x0125, { 1, 4, /* 0 */ } },		/* Dongle EC25-A LTE modem */
 };
 
+static const struct pdiscovery_device device_id_e3131 = { 0x12d1, 0x1506, { 0, 2 } }
+
 static struct discovery_cache cache;
 
 #/* return non-0 if all ports matched */
@@ -688,11 +690,7 @@ static int pdiscovery_check_device(const char * name, int len, const char * subd
 	if(device) {
 		// if req is with IMEI start with 86364401, it's E3131, data port is 0 and voice port is 2
 		if (req->imei && strncmp(req->imei, "86364401", 8) == 0) {
-			device->interfaces[INTERFACE_TYPE_DATA] = 0;
-			device->interfaces[INTERFACE_TYPE_VOICE] = 2;
-		} else {
-			device->interfaces[INTERFACE_TYPE_DATA] = 1;
-			device->interfaces[INTERFACE_TYPE_VOICE] = 2;
+			device = &device_id_e3131;
 		}
 //		ast_debug(4, "[%s discovery] should ports <-> interfaces map for %04x:%04x modem=%02x voice=%02x data=%02x\n",
 		ast_debug(4, "[%s discovery] should ports <-> interfaces map for %04x:%04x voice=%02x data=%02x\n",
