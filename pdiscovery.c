@@ -71,7 +71,7 @@ static const struct pdiscovery_device device_ids[] = {
 	{ 0x2c7c, 0x0125, { 1, 4, /* 0 */ } },		/* Dongle EC25-A LTE modem */
 };
 
-static const struct pdiscovery_device device_id_e3131 = { 0x12d1, 0x1506, { 0, 2 } }
+static const struct pdiscovery_device device_id_e3131 = { 0x12d1, 0x1506, { 0, 2 } };
 
 static struct discovery_cache cache;
 
