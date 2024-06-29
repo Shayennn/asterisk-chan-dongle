@@ -61,7 +61,7 @@ struct discovery_cache {
 		out[d2len] = 0;
 
 
-static struct pdiscovery_device device_ids[] = {
+static const struct pdiscovery_device device_ids[] = {
 	{ 0x12d1, 0x1001, { 2, 1, /* 0 */ } },		/* E1550 and generic */
 //	{ 0x12d1, 0x1465, { 2, 1, /* 0 */ } },		/* K3520 */
 	{ 0x12d1, 0x140c, { 3, 2, /* 0 */ } },		/* E17xx */
@@ -679,7 +679,7 @@ static int pdiscovery_check_device(const char * name, int len, const char * subd
 {
 	int len2;
 	char * name2;
-	const struct pdiscovery_device * device;
+	struct pdiscovery_device * device;
 	int found = 0;
 
 	BUILD_NAME(name, subdir, len, len2, name2);
