@@ -686,6 +686,11 @@ static int pdiscovery_check_device(const char * name, int len, const char * subd
 
 	device = pdiscovery_lookup_ids(req->name, name2, len2);
 	if(device) {
+		// if req is with IMEI start with 86364401, it's E3131, data port is 0 and voice port is 2
+		if (req->imei && strncmp(req->imei, "86364401", 8) == 0) {
+			device->interfaces[INTERFACE_TYPE_DATA] = 0;
+			device->interfaces[INTERFACE_TYPE_VOICE] = 2;
+		}
 //		ast_debug(4, "[%s discovery] should ports <-> interfaces map for %04x:%04x modem=%02x voice=%02x data=%02x\n",
 		ast_debug(4, "[%s discovery] should ports <-> interfaces map for %04x:%04x voice=%02x data=%02x\n",
 			req->name,
