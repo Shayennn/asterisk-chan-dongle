@@ -67,7 +67,7 @@ static const struct pdiscovery_device device_ids[] = {
 	{ 0x12d1, 0x140c, { 3, 2, /* 0 */ } },		/* E17xx */
 	{ 0x12d1, 0x14ac, { 4, 3, /* 0 */ } },		/* E153Du-1 : thanks mghadam */
 	{ 0x12d1, 0x1436, { 4, 3, /* 0 */ } },		/* E1750 */
-	{ 0x12d1, 0x1506, { 1, 2, /* 0 */ } },		/* E171 firmware 21.x : thanks Sergey Ivanov */
+	{ 0x12d1, 0x1506, { 0, 2, /* 0 */ } },		/* E171 firmware 21.x : thanks Sergey Ivanov */
 	{ 0x2c7c, 0x0125, { 1, 4, /* 0 */ } },		/* Dongle EC25-A LTE modem */
 };
 
@@ -681,7 +681,7 @@ static int pdiscovery_check_device(const char * name, int len, const char * subd
 {
 	int len2;
 	char * name2;
-	struct pdiscovery_device * device;
+	const struct pdiscovery_device * device;
 	int found = 0;
 
 	BUILD_NAME(name, subdir, len, len2, name2);
@@ -689,9 +689,9 @@ static int pdiscovery_check_device(const char * name, int len, const char * subd
 	device = pdiscovery_lookup_ids(req->name, name2, len2);
 	if(device) {
 		// if req is with IMEI start with 86364401, it's E3131, data port is 0 and voice port is 2
-		if (req->imei && strncmp(req->imei, "86364401", 8) == 0) {
-			device = &device_id_e3131;
-		}
+		// if (req->imei && strncmp(req->imei, "86364401", 8) == 0) {
+		// 	device = &device_id_e3131;
+		// }
 //		ast_debug(4, "[%s discovery] should ports <-> interfaces map for %04x:%04x modem=%02x voice=%02x data=%02x\n",
 		ast_debug(4, "[%s discovery] should ports <-> interfaces map for %04x:%04x voice=%02x data=%02x\n",
 			req->name,
